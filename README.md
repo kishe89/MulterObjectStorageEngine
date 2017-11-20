@@ -6,3 +6,5 @@ This repository is an example of using multer's custom storage engine
 
 `node ./bin/www`
 
+### License
+[License](LICENSE)

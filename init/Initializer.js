@@ -4,7 +4,7 @@
  *
  */
 
-exports.InitMongoDB = function (env,mongoose) {
+exports.InitMongoDB = (env,mongoose) => {
 
     if(!env.VCAP_SERVICES){
         /**
@@ -21,13 +21,13 @@ exports.InitMongoDB = function (env,mongoose) {
             reconnectTries:30
         };
         let db = mongoose.connect(credentials.MongodbURI,options);
-        db.on('error',function (err) {
+        db.on('error', (err) => {
             console.error(err);
         });
-        db.on('connected',function () {
+        db.on('connected', () => {
             console.log('connection is connected');
         });
-        db.on('disconnected',function (err) {
+        db.on('disconnected', (err) => {
             console.error(err);
         });
     }else{
@@ -53,28 +53,28 @@ exports.InitMongoDB = function (env,mongoose) {
             reconnectTries:30
         };
         let db = mongoose.connect(connection_string,options);
-        db.on('error',function (err) {
+        db.on('error', (err) => {
             console.error(err);
         });
-        db.on('connected',function () {
+        db.on('connected', () => {
             console.log('connection is connected');
         });
-        db.on('disconnected',function (err) {
+        db.on('disconnected', (err) => {
             console.error(err);
         });
 
     }
 };
-exports.InitStorage = function (env) {
+exports.InitStorage = (env) => {
     if(!env.VCAP_SERVICES){
         /**
          * @TODO Local Initialization
          * Please Input ./credentials/credential.js
          */
-        let credentials = require('../credentials/credential');
-        let pkgcloud = require('pkgcloud');
+        const credentials = require('../credentials/credential');
+        const pkgcloud = require('pkgcloud');
         let storageClient = pkgcloud.storage.createClient(credentials.ObjectStorage);
-        storageClient.auth(function (err) {
+        storageClient.auth((err) => {
             if(err){
                 console.error(err);
             }
@@ -93,7 +93,7 @@ exports.InitStorage = function (env) {
         const username = objectstorage[0].credentials.username;
         const password = objectstorage[0].credentials.password;
         const region = objectstorage[0].credentials.region;
-        let pkgcloud = require('pkgcloud');
+        const pkgcloud = require('pkgcloud');
 
         const config = {
             provider: 'openstack',
@@ -108,8 +108,9 @@ exports.InitStorage = function (env) {
             password: password,
             region: region   //dallas or london region
         };
+        
         let storageClient = pkgcloud.storage.createClient(config);
-        storageClient.auth(function (err) {
+        storageClient.auth((err) => {
             if(err){
                 console.error(err);
             }

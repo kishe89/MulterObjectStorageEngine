@@ -5,14 +5,14 @@ const storageEngine = require('../util/ObjectStorageEngine');
 
 const upload = multer({
     storage:storageEngine({
-        destination:  (req, file, cb)=> {
+        destination:  (req, file, cb) => {
             cb(null, 'profile')
         }
     })
 });
 
-router.post('/',upload.array('photos'), (req, res, next)=> {
-  res.json(req.files);
+router.post('/', upload.array('photos'), (req, res, next) => {
+    res.json(req.files);
 });
 
 module.exports = router;

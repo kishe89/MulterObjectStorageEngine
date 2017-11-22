@@ -3,7 +3,7 @@ function ObjectStorage (opts) {
 }
 
 ObjectStorage.prototype._handleFile = function _handleFile (req, file, cb) {
-    this.getDestination(req, file, function (err, container) {
+    this.getDestination(req, file, (err, container) => {
         if (err) {
             return cb(err)
         }
@@ -13,7 +13,7 @@ ObjectStorage.prototype._handleFile = function _handleFile (req, file, cb) {
         });
         file.stream.pipe(outStream);
         outStream.on('error', cb)
-        outStream.on('success', function (savedFile) {
+        outStream.on('success', (savedFile) => {
             cb(null, {
                 container: container,
                 path: savedFile.name,
